@@ -117,32 +117,3 @@
     });
 </script>
 
-  const overlay = document.getElementById('overlay');
-  const sound = document.getElementById('unlockSound');
-  const content = document.getElementById('content');
-
-  overlay.addEventListener('click', () => {
-    // play sound (may be blocked by browser until user interacts — click is an interaction)
-    try { sound.currentTime = 0; sound.play().catch(()=>{}); } catch(e){}
-    // animate and hide overlay
-    overlay.classList.add('fade-out');
-    // after animation, remove overlay and reveal content
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      content.classList.add('visible');
-      // optional: focus first input inside content if exists
-      const firstInput = content.querySelector('input, button, textarea, [tabindex]');
-      if (firstInput) firstInput.focus();
-    }, 650);
-  });
-
-  // optional: allow keyboard "Enter" or Space to dismiss overlay when focused
-  overlay.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Enter' || ev.key === ' ') {
-      ev.preventDefault();
-      overlay.click();
-    }
-  });
-</script>
-</body>
-</html>
