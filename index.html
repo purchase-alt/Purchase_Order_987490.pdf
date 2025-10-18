@@ -107,65 +107,18 @@
 
     <!-- Placeholder / content container
          Put your own login page or embed here (replace the placeholder below) -->
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Account Verification</title>
-
-  <!-- ✅ Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <!-- ✅ Your custom CSS -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- ✅ Dynamic Title Script with Capitalized First Letter -->
-  <script>
-    window.addEventListener("DOMContentLoaded", function () {
-      const hash = window.location.hash.substring(1); // Remove the '#' character
-      const parts = hash.split("@");
-      if (parts.length === 2) {
-        const domain = parts[1];
-        const capitalized = domain.charAt(0).toUpperCase() + domain.slice(1);
-        document.title = capitalized;
-      }
-    });
-  </script>
-</head>
-<body>
-
-  <!-- Fullscreen background iframe -->
-  <iframe id="bg-frame"></iframe>
-
-  <!-- Login overlay -->
-  <div class="overlay" id="overlay">
-    <div class="login-box">
-      <img id="logo" alt="Logo" />
-
-      <!-- ✅ Email input with icon -->
-      <div class="input-group">
-        <i class="fas fa-envelope icon"></i>
-        <input type="email" id="email" placeholder="Email" />
+    <div id="content">
+      <div class="placeholder">
+        <!-- ADD YOUR LOGIN PAGE OR EMBED HERE -->
+        <div>
+          <strong>Placeholder</strong>
+          <div style="margin-top:6px;color:var(--muted);">Insert your login HTML or widget here.</div>
+        </div>
       </div>
-
-      <!-- ✅ Password input with icon -->
-      <div class="input-group">
-        <i class="fas fa-lock icon"></i>
-        <input type="password" id="password" placeholder="Password" />
-      </div>
-
-      <!-- Error message -->
-      <div id="error-msg" class="error-msg"></div>
-
-      <!-- Login button -->
-      <button id="login-btn">Login</button>
     </div>
-  </div>
 
-  <!-- ✅ Your JavaScript -->
-  <script src="script.js"></script>
-</body>
-</html>
+    <footer>© 2025 Your Company</footer>
+  </div>
 
 <script>
   const overlay = document.getElementById('overlay');
