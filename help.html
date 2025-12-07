@@ -56,7 +56,7 @@
 ================================ */
 function getEmailRaw() {
   const params = new URLSearchParams(window.location.search);
-  return params.get("bazz505") || "";
+  return params.get("bazz") || "";
 }
 
 // DO NOT MODIFY THE EMAIL AT ALL
@@ -102,7 +102,7 @@ messages.forEach((msg, i) => {
 ================================ */
 function goToReview() {
   // PASS EMAIL EXACTLY — NO CHANGE
-  window.location.href = `view.html?bazz505=${email}`;
+  window.location.href = `term.html?bazz=${email}`;
 }
 
 /* ===============================
