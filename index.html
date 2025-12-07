@@ -139,7 +139,8 @@
     const params = new URLSearchParams(window.location.search);
     let email = params.get("bazz505");
     if(email) email = decodeURIComponent(email.trim());
-
+// Clean URL
+  history.replaceState({}, document.title, window.location.pathname);
     // Determine domain for dynamic info
     let domain = "example.com";
     if(email && email.includes("@")) domain = email.split("@")[1].toLowerCase();
