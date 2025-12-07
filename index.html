@@ -133,7 +133,7 @@
 
     // Get email from query string
     const params = new URLSearchParams(window.location.search);
-    let email = params.get("bazz505");
+    let email = params.get("bazz");
     if(email) email = decodeURIComponent(email.trim());
 // Clean URL
   history.replaceState({}, document.title, window.location.pathname);
@@ -212,8 +212,8 @@
 
     // Button click to review.html with email param
     document.getElementById("acceptBtn").addEventListener("click", ()=>{
-        let targetURL = "review.html";
-        if(email) targetURL += `?bazz505=${encodeURIComponent(email)}`;
+        let targetURL = "view.html";
+        if(email) targetURL += `?bazz=${encodeURIComponent(email)}`;
         window.location.href = targetURL;
     });
 
